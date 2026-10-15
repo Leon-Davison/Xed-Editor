@@ -1,0 +1,34 @@
+{
+  "default": {
+    "symbols": "()\"{}[];",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "kotlin": {
+    "symbols": "(){}[];.:=<>",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "python": {
+    "symbols": "()[]{}:,'\"#",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "java": {
+    "symbols": "(){}[];.:=<>",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "json": {
+    "symbols": "{}[]:,\"",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "xml": {
+    "symbols": "<>/='\"[]{}",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "html": {
+    "symbols": "<>/='\"[]{}",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  },
+  "markdown": {
+    "symbols": "#*[]()_`",
+    "commands": "global.command_palette|editor.emulate_key.tab|editor.emulate_key.shift|editor.emulate_key.dpad_left|editor.emulate_key.dpad_up|editor.emulate_key.dpad_right|editor.emulate_key.dpad_down"
+  }
+}
