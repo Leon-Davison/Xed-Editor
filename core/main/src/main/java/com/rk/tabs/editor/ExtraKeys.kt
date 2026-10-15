@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.unit.dp
 import com.rk.activities.main.MainActivity
@@ -42,7 +43,15 @@ private data class ExtraKey(
 
 @Composable
 fun ExtraKeys(editorTab: EditorTab) {
-    val commandIds by remember { derivedStateOf { Settings.extra_keys_commands.split("|").toTypedArray() } }
+    val context = LocalContext.current
+    val langConfig = remember(editorTab) { ExtraKeysByLanguage.getForTab(context, editorTab) }
+
+    val commandIds by remember(langConfig) {
+        derivedStateOf {
+            val configValue = langConfig?.commands ?: Settings.extra_keys_commands
+            configValue.split("|").toTypedArray()
+        }
+    }
     val commands by remember { derivedStateOf { commandIds.mapNotNull { id -> CommandProvider.getForId(id) } } }
 
     val commandExtraKeys = commands.map { command ->
@@ -58,7 +67,9 @@ fun ExtraKeys(editorTab: EditorTab) {
     }
 
     val isEditable by remember { derivedStateOf { editorTab.editorState.editable } }
-    val symbols = Settings.extra_keys_symbols
+    val symbols by remember(langConfig) {
+        derivedStateOf { langConfig?.symbols ?: Settings.extra_keys_symbols }
+    }
     val symbolExtraKeys = symbols.map {
         ExtraKey(
             label = it.toString(),
