@@ -44,8 +44,8 @@ import com.rk.settings.Settings
 import com.rk.tabs.editor.EditorTab
 import com.rk.theme.XedTheme
 import com.rk.utils.dialogRes
-import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
+import kotlinx.coroutines.launch
 
 var fileTreeViewModel = WeakReference<FileTreeViewModel?>(null)
 var searchViewModel = WeakReference<SearchViewModel?>(null)
@@ -128,9 +128,9 @@ fun MainActivity.MainContentHost(
             val softThreshold = with(density) { 50.dp.toPx() }
             val hardThreshold = with(density) { 100.dp.toPx() }
 
-            val extraKeysPadding = if (Settings.split_extra_keys) 88.dp else 48.dp
+            val floatPadding = viewModel.currentVisibleTab?.floatPadding ?: 0.dp
             val taskOutputPadding = if (TaskOutputState.isActive) 72.dp else 0.dp
-            val snackbarBottomPadding = (if (Settings.show_extra_keys) extraKeysPadding else 0.dp) + taskOutputPadding
+            val snackbarBottomPadding = floatPadding + taskOutputPadding
 
             val mainContent: @Composable () -> Unit = {
                 Scaffold(
@@ -189,7 +189,6 @@ fun MainActivity.MainContentHost(
                         mainViewModel = viewModel,
                         drawerViewModel = drawerViewModel,
                         fileTreeViewModel = fileTreeViewModel,
-                        drawerState = drawerState,
                     )
                 }
             }
@@ -212,9 +211,7 @@ fun MainActivity.MainContentHost(
 
             GlobalDialogHost(viewModel, drawerViewModel)
 
-            DialogRegistry.getDialogs().forEach { dialog ->
-                dialog()
-            }
+            DialogRegistry.getDialogs().forEach { dialog -> dialog() }
         }
     }
 }
