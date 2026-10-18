@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.rk.settings.Settings
+import com.rk.settings.Preference
 import com.rk.utils.application
 
 // Simple config holder for per-language extra keys
@@ -42,7 +43,8 @@ object ExtraKeysByLanguage {
         }.getOrElse { emptyMap<String, ExtraKeysConfig>() }
 
         // merge with user overrides stored in Settings.per_language_extra_keys
-        val merged = mergeMaps(defaults, Settings.per_language_extra_keys)
+        val overridesJson = Preference.getString("per_language_extra_keys", "")
+        val merged = mergeMaps(defaults, overridesJson)
         cache = merged.mapKeys { it.key.lowercase() }
     }
 
