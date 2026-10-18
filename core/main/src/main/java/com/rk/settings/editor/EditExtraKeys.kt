@@ -46,6 +46,7 @@ import com.rk.resources.drawables
 import com.rk.resources.strings
 import com.rk.settings.Preference
 import com.rk.settings.Settings
+import com.rk.settings.editor.EditPerLanguageExtraKeys
 import com.rk.utils.handleLazyListScroll
 import kotlinx.coroutines.launch
 
@@ -66,6 +67,9 @@ fun EditExtraKeys(modifier: Modifier = Modifier) {
 
     var showExtraKeysDialog by remember { mutableStateOf(false) }
     val extraKeysValue = remember { mutableStateOf(Settings.extra_keys_symbols) }
+
+    // New: show the per-language editor
+    var showPerLanguageEditor by remember { mutableStateOf(false) }
 
     if (showExtraKeysDialog) {
         SingleInputDialog(
@@ -164,11 +168,26 @@ fun EditExtraKeys(modifier: Modifier = Modifier) {
                                 iconRes = drawables.edit,
                                 sideEffect = { showExtraKeysDialog = true },
                             )
+
+                            // New Editor entry to open the per-language extra-keys editor
+                            EditorSettingsItem(
+                                label = "Per-language extra keys",
+                                description = "Customize extra keys per language (overrides defaults)",
+                                showSwitch = false,
+                                default = false,
+                                iconRes = drawables.edit,
+                                sideEffect = { showPerLanguageEditor = true },
+                            )
                         }
                     }
                 }
             }
         }
+    }
+
+    // Render the per-language editor when requested. It calls onClose to dismiss itself.
+    if (showPerLanguageEditor) {
+        EditPerLanguageExtraKeys(onClose = { showPerLanguageEditor = false })
     }
 }
 
@@ -179,7 +198,7 @@ private fun saveOrder(commandIds: SnapshotStateList<String>) {
 }
 
 /** Reset order of commands and symbols to default */
-private fun resetOrder(commandIds: SnapshotStateList<String>, extraKeysValue: MutableState<String>) {
+private fun resetOrder(commandIds: SnapshotStateList<String>, extraKeysValue: androidx.compose.runtime.MutableState<String>) {
     Preference.removeKey("extra_keys_commands")
     Preference.removeKey("extra_keys")
     commandIds.clear()
